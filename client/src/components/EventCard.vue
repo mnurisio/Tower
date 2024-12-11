@@ -12,24 +12,30 @@ defineProps({
 
 
 <template>
-    <div class="card my-2 eventCard shadow">
-        <img :style="{backgroundImage: `url(${event.coverImg})`}" class="card-img-top img-fluid cardImg" :alt="event.name">
-        <div class="card-body">
-            <h5 class="card-title">{{ event.name }}</h5>
-            <p>{{ event.creator.name }}</p>
+    <router-link :to="{name: 'Event Details', params: {eventId: event.id}}">
+        <div :style="{backgroundImage: `url(${event.coverImg})`}" class="card my-2 cardImg shadow text-light d-flex justify-content-end">
+            <div>
+                <div class="card-body cardBG px-md-3 py-md-3">
+                    <h5 class="card-title mb-0 fw-bold">{{ event.name }}</h5>
+                    <b class="mb-0 mt-1">{{ event.creator.name }}</b>
+                </div>
+            </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 
 <style lang="scss" scoped>
-.eventCard{
-    overflow-y: scroll;
-}
 
 .cardImg{
     min-height: 15rem;
     background-size: cover;
     background-position: center;
+}
+
+.cardBG{
+    background-color: rgba(0, 0, 0, 0.631);
+    backdrop-filter: blur(5px);
+    height: 5rem;
 }
 </style>

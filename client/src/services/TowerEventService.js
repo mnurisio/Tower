@@ -5,14 +5,20 @@ import { AppState } from "@/AppState.js"
 
 
 class TowerEventService{
-
- async getEvents() {
+  
+  async getEvents() {
     const response = await api.get('api/events')
     logger.log('got events', response.data)
     const events = response.data.map(eventPOJO => new TowerEvent(eventPOJO))
     AppState.towerEvents = events
   }
-
+  
+ async getEventById(eventId) {
+      const response = await api.get(`api/events/${eventId}`)
+      logger.log('getting event by ID', response.data)
+      const event = new TowerEvent(response.data)
+      AppState.activeEvent = event
+  }
 }
 
 export const towerEventService = new TowerEventService()
