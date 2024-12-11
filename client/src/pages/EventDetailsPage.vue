@@ -53,7 +53,7 @@ async function cancelEvent(){
     </section>
     <section class="row">
         <div class="col-7 align-items-center">
-            <h6 class="text-end"><button @click="cancelEvent()" class="btn btn-danger"><i class="mdi mdi-delete-outline"></i></button></h6>
+            <h6 v-if="event.creatorId == account?.id" class="text-end"><button @click="cancelEvent()" class="btn btn-danger"><i class="mdi mdi-delete-outline"></i></button></h6>
             <span class="fw-bold fs-3 me-3">{{ event.name }}</span>
             <span class="rounded-pill px-3 bg-primary text-light fs-5">{{ event.type }}</span>
             <p>{{ event.description }}</p>
