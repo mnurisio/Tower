@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController";
 import { towerEventService } from "../services/TowerEventService";
+import { ticketService } from "../services/TicketService";
 
 
 export class TowerEventController extends BaseController {
@@ -9,6 +10,7 @@ export class TowerEventController extends BaseController {
         this.router
             .get('', this.getAllEvents)
             .get('/:eventId', this.getEventById)
+            .get('/:eventId/tickets', this.getTotalEventTickets)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createEvent)
             .put('/:eventId', this.editEvent)
@@ -92,5 +94,20 @@ export class TowerEventController extends BaseController {
     } catch (error) {
         next(error)
     }
+   }
+
+    /**
+    * @param {import("express").Request} request
+    * @param {import("express").Response} response
+    * @param {import("express").NextFunction} next
+    */
+   async getTotalEventTickets(request, response, next){
+try {
+    const eventId = request.params.eventId
+    const tickets = await ticketService.getTotalEventTickets(eventId)
+    response.send(tickets)
+} catch (error) {
+    next(error)
+}
    }
 }
