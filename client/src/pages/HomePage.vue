@@ -6,6 +6,7 @@ import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
 
 const events = computed(() => AppState.towerEvents)
+const account = computed(()=> AppState.account)
 
 onMounted(() => {
   getEvents()
@@ -32,7 +33,7 @@ async function getEvents() {
     <section class="row justify-content-evenly">
       <div class="col-5">Browse Events</div>
       <div class="col-5">
-        <div class="card">
+        <div v-if="account" type="button" data-bs-toggle="modal" data-bs-target="#eventModal" class="card">
           <div class="card-body">
             <h5 class="card-title my-2"><i class="mdi mdi-plus-thick"></i> Create an Event</h5>
             <h6 class="card-subtitle mb-2 text-body-secondary my-2">Create an event and invite your friends!</h6>

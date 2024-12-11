@@ -1,6 +1,7 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import { AppState } from './AppState.js';
+import EventModal from './components/EventModal.vue';
 
 </script>
 
@@ -14,6 +15,8 @@ import { AppState } from './AppState.js';
   <footer class="bg-dark text-light">
     Made with 💖 by CodeWorks
   </footer>
+
+  <EventModal />
 </template>
 
 <style lang="scss">
