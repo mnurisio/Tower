@@ -5,11 +5,11 @@ import { AppState } from "@/AppState.js"
 
 class TicketService {
 
-  async getTicketsByEventId(eventId) {
-       const response = await api.get(`api/events/${eventId}/tickets`)
-       logger.log('getting tickets by eventId', response.data)
-       const tickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
-       AppState.ticketProfiles = tickets
+   async getTicketsByEventId(eventId) {
+      const response = await api.get(`api/events/${eventId}/tickets`)
+      logger.log('getting tickets by eventId', response.data)
+      const tickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
+      AppState.ticketProfiles = tickets
    }
 
    async refundTicket(ticketId) {

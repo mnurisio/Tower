@@ -18,10 +18,10 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-sm bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="/img/cw-logo.png" height="45" />
+      <div class="d-flex flex-column align-items-center text-light welcomeTower">
+        Welcome to Tower
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -30,11 +30,7 @@ function toggleTheme() {
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
+    
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <div>
@@ -49,6 +45,10 @@ function toggleTheme() {
 </template>
 
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+
 a:hover {
   text-decoration: none;
 }
@@ -61,6 +61,12 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.welcomeTower{
+  text-decoration: underline;
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style:italic;
 }
 
 @media screen and (min-width: 576px) {

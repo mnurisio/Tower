@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext"
 import { Forbidden } from "../utils/Errors"
+import { towerEventService } from "./TowerEventService"
 
 
 class CommentService {
@@ -23,6 +24,7 @@ class CommentService {
     }
 
     async createComment(commentData) {
+        const event = await towerEventService.getEventById(commentData.eventId)
         const comment = await dbContext.Comment.create(commentData)
         await comment.populate('creator', 'name picture')
         return comment
