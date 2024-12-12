@@ -13,13 +13,21 @@ defineProps({
 
 
 <template>
-    <router-link :to="{name: 'Event Details', params: {eventId: event.id}}">
-        <div :style="{backgroundImage: `url(${event.coverImg})`}" class="card my-2 cardImg shadow text-light d-flex justify-content-end">
+    <router-link :to="{ name: 'Event Details', params: { eventId: event.id } }">
+        <div :style="{ backgroundImage: `url(${event.coverImg})` }"
+            class="card my-2 cardImg shadow text-light d-flex justify-content-end">
             <div class="p-1">
-                <div class="card-body cardBG px-md-3 py-md-3" :class="{cancelledCard: event.isCanceled}">
+                <div v-if="event.isCanceled" class="mb-2">
+                    <b class="rounded-pill px-3 bg-danger text-dark fs-6">CANCELLED</b>
+                </div>
+                <div v-if="event.capacity == event.ticketCount" class="mb-2">
+                    <b class="rounded-pill px-3 bg-info text-dark fs-6">SOLD OUT</b>
+                </div>
+                <div class="card-body cardBG px-md-3 py-md-3">
                     <h5 class="card-title mb-0 fw-bold">{{ event.name }}</h5>
                     <b class="mb-0 mt-1">{{ event.creator.name }}</b>
                 </div>
+
             </div>
         </div>
     </router-link>
@@ -27,21 +35,20 @@ defineProps({
 
 
 <style lang="scss" scoped>
-
-.cardImg{
+.cardImg {
     min-height: 15rem;
     background-size: cover;
     background-position: center;
 }
 
-.cardBG{
+.cardBG {
     background-color: rgba(0, 0, 0, 0.631);
     backdrop-filter: blur(5px);
     height: 5rem;
     border-radius: 10px;
 }
 
-.cancelledCard::after{
+.cancelledCard::before {
     background-color: rgba(0, 0, 0, 0.631);
     backdrop-filter: blur(5px);
     height: 5rem;

@@ -5,7 +5,22 @@ import { AppState } from "@/AppState.js"
 
 class TicketService {
 
-  async getMyTickets() {
+  async getTicketsByEventId(eventId) {
+       const response = await api.get(`api/events/${eventId}/tickets`)
+       logger.log('getting tickets by eventId', response.data)
+       const tickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
+       AppState.ticketProfiles = tickets
+   }
+
+   async refundTicket(ticketId) {
+      const response = await api.delete(`api/tickets/${ticketId}`)
+      logger.log('delete ticket', response.data)
+      const ticketToDelete = AppState.myTickets.findIndex(myTicket => myTicket.id == ticketId)
+      AppState.myTickets.splice(ticketToDelete, 1)
+      AppState.ticketProfiles.splice(ticketToDelete, 1)
+   }
+
+   async getMyTickets() {
       const response = await api.get('account/tickets')
       logger.log('getting my tickets', response.data)
       const tickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
@@ -17,7 +32,6 @@ class TicketService {
       logger.log('Creating ticket', response.data)
       const ticket = new Ticket(response.data)
       AppState.ticketProfiles.push(ticket)
-
    }
 }
 

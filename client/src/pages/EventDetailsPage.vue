@@ -18,6 +18,7 @@ const remainingTickets = computed(() => Math.floor(event.value?.capacity - event
 
 watch(route, () => {
     getEventById()
+    getTicketsByEventId()
 }, { immediate: true })
 
 async function getEventById() {
@@ -54,9 +55,19 @@ async function createTicket() {
     }
 }
 
+async function getTicketsByEventId(){
+    try {
+      const eventId = route.params.eventId
+      await ticketService.getTicketsByEventId(eventId)
+    }
+    catch (error){
+      Pop.meow(error);
+    }
+}
+
 </script>
 
-//TODO - ask mick/jeremy about the dropdown for edit/delete AND blurred background image for cancelled events
+
 <template>
     <div v-if="event" class="container">
         <section class="row justify-content-center my-3">
@@ -64,14 +75,6 @@ async function createTicket() {
                 :class="{ canceledImg: event.isCanceled, soldOutImg: remainingTickets == 0 }"
                 :style="{ backgroundImage: `url(${event.coverImg})` }">
             </div>
-            <!-- <div v-if="event.isCanceled" class="col-md-12 col-11 text-center align-content-center canceledImg m-2"
-                :style="{ backgroundImage: `url(${event.coverImg})` }">
-                <h1 class="text-danger canceledText"><b>CANCELLED</b></h1>
-            </div> -->
-            <!-- <div v-if="remainingTickets == 0" class="col-md-12 col-11 text-center align-content-center canceledImg m-2"
-                :style="{ backgroundImage: `url(${event.coverImg})` }">
-                <h1 class="text-info canceledText"><b>SOLD OUT</b></h1>
-            </div> -->
         </section>
         <section class="row">
             <div class="col-md-7 col-12 align-items-center">
@@ -79,15 +82,17 @@ async function createTicket() {
                         class="btn btn-danger"><i class="mdi mdi-delete-outline"></i></button></h6>
                 <div class="text-md-start text-center">
                     <div class="fw-bold fs-3  p-2">{{ event.name }}</div>
-                    <div class="mb-2"><span class="rounded-pill px-3 bg-primary text-light fs-5 ">{{ event.type }}</span></div>
-                    <div class="mb-2" v-if="isAttending"><span class="rounded-pill px-3 bg-success text-dark fs-5">You're
-                        going!!!</span></div>
+                    <div class="mb-2"><span class="rounded-pill px-3 bg-primary text-light fs-5 ">{{ event.type
+                            }}</span></div>
+                    <div class="mb-2" v-if="isAttending"><span
+                            class="rounded-pill px-3 bg-success text-dark fs-5">You're
+                            going!!!</span></div>
                 </div>
-                <p class="mb-2">{{ event.description }}</p>
+                <p class="mb-2 text-center text-md-start">{{ event.description }}</p>
                 <h4 class="text-center text-md-start p-1">Date and Time</h4>
-                <h6 class="m-0 p-1">{{ event.startDate }}</h6>
+                <h6 class="m-0 p-1 text-center text-md-start">{{ event.startDate }}</h6>
                 <h4 class="text-center text-md-start p-1">Location</h4>
-                <h6 class="m-0 p-1"><i class="mdi mdi-map-outline"></i> {{ event.location }}</h6>
+                <h6 class="m-0 p-1 text-center text-md-start"><i class="mdi mdi-map-outline"></i> {{ event.location }}</h6>
                 <hr>
                 <h4 class="text-center text-md-start p-1">Comment Section</h4>
 
