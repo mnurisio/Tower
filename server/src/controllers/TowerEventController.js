@@ -2,6 +2,7 @@ import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController";
 import { towerEventService } from "../services/TowerEventService";
 import { ticketService } from "../services/TicketService";
+import { commentService } from "../services/CommentService";
 
 
 export class TowerEventController extends BaseController {
@@ -11,6 +12,7 @@ export class TowerEventController extends BaseController {
             .get('', this.getAllEvents)
             .get('/:eventId', this.getEventById)
             .get('/:eventId/tickets', this.getTotalEventTickets)
+            .get('/:eventId/comments', this.getCommentsByEventId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createEvent)
             .put('/:eventId', this.editEvent)
@@ -53,61 +55,76 @@ export class TowerEventController extends BaseController {
     * @param {import("express").Response} response
     * @param {import("express").NextFunction} next
     */
-   async getEventById(request, response, next){
-    try {
-        const eventId = request.params.eventId
-        const event = await towerEventService.getEventById(eventId)
-        response.send(event)
-    } catch (error) {
-        next(error)
+    async getEventById(request, response, next) {
+        try {
+            const eventId = request.params.eventId
+            const event = await towerEventService.getEventById(eventId)
+            response.send(event)
+        } catch (error) {
+            next(error)
+        }
     }
-   }
 
-/**
-    * @param {import("express").Request} request
-    * @param {import("express").Response} response
-    * @param {import("express").NextFunction} next
-    */
-   async editEvent(request, response, next){
-    try {
-        const eventId = request.params.eventId
-        const eventData = request.body
-        const userId = request.userInfo.id
-        const event = await towerEventService.editEvent(eventId, eventData, userId)
-        response.send(event)
-    } catch (error) {
-        next(error)
+    /**
+        * @param {import("express").Request} request
+        * @param {import("express").Response} response
+        * @param {import("express").NextFunction} next
+        */
+    async editEvent(request, response, next) {
+        try {
+            const eventId = request.params.eventId
+            const eventData = request.body
+            const userId = request.userInfo.id
+            const event = await towerEventService.editEvent(eventId, eventData, userId)
+            response.send(event)
+        } catch (error) {
+            next(error)
+        }
     }
-   }
 
-   /**
-    * @param {import("express").Request} request
-    * @param {import("express").Response} response
-    * @param {import("express").NextFunction} next
-    */
-   async cancelEvent(request, response, next){
-    try {
-        const eventId = request.params.eventId
-        const userId = request.userInfo.id
-        const event = await towerEventService.cancelEvent(eventId, userId)
-        response.send(event)
-    } catch (error) {
-        next(error)
+    /**
+     * @param {import("express").Request} request
+     * @param {import("express").Response} response
+     * @param {import("express").NextFunction} next
+     */
+    async cancelEvent(request, response, next) {
+        try {
+            const eventId = request.params.eventId
+            const userId = request.userInfo.id
+            const event = await towerEventService.cancelEvent(eventId, userId)
+            response.send(event)
+        } catch (error) {
+            next(error)
+        }
     }
-   }
 
     /**
     * @param {import("express").Request} request
     * @param {import("express").Response} response
     * @param {import("express").NextFunction} next
     */
-   async getTotalEventTickets(request, response, next){
-try {
-    const eventId = request.params.eventId
-    const tickets = await ticketService.getTotalEventTickets(eventId)
-    response.send(tickets)
-} catch (error) {
-    next(error)
-}
-   }
+    async getTotalEventTickets(request, response, next) {
+        try {
+            const eventId = request.params.eventId
+            const tickets = await ticketService.getTotalEventTickets(eventId)
+            response.send(tickets)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /**
+       * @param {import("express").Request} request
+       * @param {import("express").Response} response
+       * @param {import("express").NextFunction} next
+       */
+    async getCommentsByEventId(request, response, next) {
+        try {
+            const eventId = request.params.eventId
+            const comments = await commentService.getCommentsByEventId(eventId)
+            response.send(comments)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
