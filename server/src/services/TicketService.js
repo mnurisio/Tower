@@ -1,3 +1,4 @@
+import { path } from "express/lib/application"
 import { dbContext } from "../db/DbContext"
 import { Forbidden } from "../utils/Errors"
 
@@ -21,6 +22,11 @@ class TicketService {
             path: 'event',
             populate: {
                 path: 'ticketCount'
+            }
+        }).populate({
+            path: 'event',
+            populate: {
+                path: 'creator'
             }
         })
         return myTickets
