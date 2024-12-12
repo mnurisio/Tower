@@ -22,7 +22,8 @@ class TowerEventService{
     }
 
    async editEvent(eventId, eventData, userId) {
-        const event = await dbContext.TowerEvent.findById(eventId)
+       const event = await dbContext.TowerEvent.findById(eventId)
+       if(event.isCanceled){throw new Error('cant do that')}
         if(event.creatorId != userId) {throw new Error('cant do that')}
         if(eventData.name) event.name = eventData.name
         if(eventData.description) event.description = eventData.description
