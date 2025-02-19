@@ -18,10 +18,10 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm bg-dark px-3">
+  <nav class="navbar navbar-expand-sm bg-page px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center text-light welcomeTower">
-        Welcome to Tower
+      <div class="d-flex flex-column align-items-center welcomeTower">
+        Tower
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -63,10 +63,10 @@ a:hover {
   border-bottom-right-radius: 0;
 }
 .welcomeTower{
-  text-decoration: underline;
   font-family: "Kanit", sans-serif;
-  font-weight: 400;
-  font-style:italic;
+  font-weight: 700;
+  font-size: 28px;
+  color: #5044DE;
 }
 
 @media screen and (min-width: 576px) {

@@ -10,7 +10,9 @@ import EventModal from './components/EventModal.vue';
     <Navbar />
   </header>
   <main>
-    <router-view />
+    <div class="bg-page">
+      <router-view />
+    </div>
   </main>
   <footer>
   </footer>
