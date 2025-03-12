@@ -97,9 +97,12 @@ async function deleteComment(commentId) {
 <template>
     <div v-if="event" class="container">
         <section class="row justify-content-center my-3">
-            <div class="col-md-12 col-11 heroImg m-2"
-                :class="{ canceledImg: event.isCanceled, soldOutImg: remainingTickets == 0 }"
-                :style="{ backgroundImage: `url(${event.coverImg})` }">
+            <div class="col-md-12 col-11 heroImg m-2" :style="{ backgroundImage: `url(${event.coverImg})` }">
+                <div class="bg-blur row justify-content-center" :class="{ canceledImg: event.isCanceled, soldOutImg: remainingTickets == 0 }">
+                    <div>
+                        <img class="img-two mx-auto d-block w-75" :src="event.coverImg" alt="">
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -113,22 +116,18 @@ async function deleteComment(commentId) {
                     <div class="row justify-content-between fw-bold fs-3 py-2 pe-md-2 pe-0 kanit-regular">
                         <div class="col-12">
                             {{ event.name }}
-                            <span v-if="event.creatorId == account?.id" class="ps-0 text-end">
-                                    <span type="button" data-bs-toggle="dropdown">
-                                        <i class="mdi mdi-dots-horizontal fs-3 dropdown-btn"></i>
-                                    </span>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div @click="cancelEvent()" class="dropdown-item" type="button">Cancel Event</div>
-                                        </li>
-                                    </ul>
+                            <span v-if="event.creatorId == account?.id" :hidden="event.isCanceled" class="ps-0 text-end">
+                                <span type="button" data-bs-toggle="dropdown">
+                                    <i class="mdi mdi-dots-horizontal fs-3 dropdown-btn"></i>
+                                </span>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div @click="cancelEvent()" class="dropdown-item" type="button">Cancel Event
+                                        </div>
+                                    </li>
+                                </ul>
                             </span>
                         </div>
-
-
-
-
-
                     </div>
                     <div v-if="account?.id == event.creatorId" class="mb-2 creator-name1">
                         <h5>Hosted by {{ event.creator.name }}</h5>
@@ -136,8 +135,7 @@ async function deleteComment(commentId) {
                     <div v-else class="mb-2 creator-name2">
                         <h5>Hosted by {{ event.creator.name }}</h5>
                     </div>
-                    <div class="mb-2"><span class="rounded-pill px-3 bg-primary text-light fs-5 ">{{ event.type
-                    }}</span></div>
+                    <div v-if="event.type = 'sport'" class="mb-2 kanit-light"><span class="p-1 event-sport">{{ event.type }}</span></div>
                     <div class="mb-2" v-if="isAttending"><span
                             class="rounded-pill px-3 bg-success text-dark fs-5">You're
                             going!!!</span></div>
@@ -180,29 +178,27 @@ async function deleteComment(commentId) {
                     </div>
                 </div>
             </div>
+
+
+
             <div class="col-md-3 col-12 pe-0">
                 <div class="ps-4">
                     <div class="text-center card bg-page">
-                        <span class="fw-bold fs-3 mt-2">Get Tickets!</span>
-                        <span class="fw-bold fs-6 mt-2">Max Capacity is {{ event.capacity }}</span>
-                        <div class="card-body">
-                            <div>
-                                <button v-if="!event.isCanceled && remainingTickets > 0 && account"
-                                    @click="createTicket()" class="btn btn-success">Attend
-                                    Event</button>
-                                <button v-if="event.isCanceled" disabled class="btn btn-danger">Sorry, this event has
-                                    been
-                                    cancelled</button>
-                                <button v-if="remainingTickets == 0" disabled class="btn btn-info">Sorry, this event is
-                                    sold out</button>
-                            </div>
-                            <h6 v-if="!event.isCanceled && remainingTickets > 0" class="mt-2 mb-0">Only {{
-                                remainingTickets }} tickets left!</h6>
-                            <h6 v-if="remainingTickets == 0" class="mt-2 mb-0">This event is sold out!</h6>
+                        <span class="kanit-regular fs-5 mt-2">Interested in going?</span>
+                        <span class="kanit-light fs-6 mb-3">Max Capacity is {{ event.capacity }}</span>
+                        <div class="card-body kanit-light">
+                                <button v-if="!event.isCanceled && remainingTickets > 0"
+                                    @click="createTicket()" class="btn attend-btn w-50">Attend</button>
+                                <button v-else disabled class="btn attend-btn w-50">Attend</button>
                         </div>
                     </div>
+                    <div class="text-end">
+                        <h6 v-if="!event.isCanceled && remainingTickets > 0" class="mt-2 mb-0"> <span
+                                class="remaining-tix">{{ remainingTickets }}</span> spots left!</h6>
+                        <h6 v-if="remainingTickets == 0" class="mt-2 mb-0">This event is sold out!</h6>
+                    </div>
                 </div>
-                <div class="m-3 p-2">
+                <div class="ms-3 my-3 ps-2 py-2">
                     <div class="card attendanceCard">
                         <div class="text-center my-2">
                             <span class="fw-bold fs-3">Attendees</span>
@@ -227,12 +223,23 @@ async function deleteComment(commentId) {
 
 <style lang="scss" scoped>
 .heroImg {
-    height: 25rem;
+    height: 30rem;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-    position: relative;
     backdrop-filter: blur(10px);
+}
+
+.img-two{
+    object-fit: cover;
+    object-position: center;
+    height: 30rem;
+}
+
+.bg-blur{
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+
 }
 
 .canceledImg::after {
@@ -248,8 +255,8 @@ async function deleteComment(commentId) {
     width: 100%;
     border-radius: 10px;
     border-color: red;
-    background-color: rgba(0, 0, 0, 0.579);
-    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.878);
+    backdrop-filter: blur(10px);
 }
 
 .soldOutImg::after {
@@ -294,21 +301,36 @@ async function deleteComment(commentId) {
     cursor: pointer;
 }
 
-.dropdown-btn{
+.dropdown-btn {
     color: #696969;
 
 }
 
-.card{
+.card {
     border: none;
     background-color: #F8F6FF;
 }
 
-.creator-name1{
+.creator-name1 {
     color: #59A369;
 }
 
-.creator-name2{
+.creator-name2 {
     color: #5044DE;
+}
+
+.remaining-tix {
+    color: #59A369;
+}
+
+.attend-btn{
+    background-color: #5044DE;
+    color: #F8F6FF;
+}
+
+.event-sport{
+    background-color: rgba(72, 102, 147, 0.2);
+    color: rgba(49, 102, 182, 1);
+    border-radius: 0.25rem;
 }
 </style>
