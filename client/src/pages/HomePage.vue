@@ -82,7 +82,7 @@ async function getEvents() {
       <hr>
     </section>
     <section class="row">
-      <div class="col-md-4" v-for="event in events" :key="event.id">
+      <div class="col-md-4 my-2 p-4" v-for="event in events" :key="event.id">
         <EventCard :event="event" />
       </div>
     </section>

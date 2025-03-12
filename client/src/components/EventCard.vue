@@ -1,9 +1,10 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { TowerEvent } from '@/models/TowerEvent';
+import { accountService } from '@/services/AccountService';
 import { computed } from 'vue';
 
-
+const account = computed(() => AppState.account)
 
 defineProps({
     event: { type: TowerEvent, required: true }
@@ -14,20 +15,38 @@ defineProps({
 
 <template>
     <router-link :to="{ name: 'Event Details', params: { eventId: event.id } }">
-        <div :style="{ backgroundImage: `url(${event.coverImg})` }"
-            class="card my-2 cardImg shadow text-light d-flex justify-content-end">
-            <div class="p-1">
-                <div v-if="event.isCanceled" class="mb-2">
-                    <b class="rounded-pill px-3 bg-danger text-dark fs-6">CANCELLED</b>
+        <div class="card mt-2 mb-4">
+            <img :src=event.coverImg class="cardImg" alt="...">
+            <div v-if="event.isCanceled && event.capacity != event.ticketCount" class="cancelledCard px-3 kanit-regular">
+                CANCELLED
+            </div>
+            <div v-if="event.capacity == event.ticketCount && !event.isCanceled" class="soldOutCard px-3 kanit-regular">
+                SOLD OUT
+            </div>
+            <div v-if="event.capacity == event.ticketCount && event.isCanceled">
+                <div class="cancelledSoldOutCard px-3 kanit-regular">
+                CANCELLED
+            </div>
+            <div class="soldOutCard px-3 kanit-regular">
+                SOLD OUT
+            </div>
+            </div>
+            <div class="card-body px-0">
+                <div class="kanit-regular">
+                    <h5 class="mb-0">{{ event.name }}</h5>
                 </div>
-                <div v-if="event.capacity == event.ticketCount" class="mb-2">
-                    <b class="rounded-pill px-3 bg-info text-dark fs-6">SOLD OUT</b>
+                <div v-if="account?.id == event.creatorId" class="creator-name1 kanit-regular mb-0">
+                    <h6>Hosted by {{ event.creator.name }}</h6>
                 </div>
-                <div class="card-body cardBG px-md-3 py-md-3">
-                    <h5 class="card-title mb-0 fw-bold">{{ event.name }}</h5>
-                    <b class="mb-0 mt-1">{{ event.creator.name }}</b>
+                <div v-else class="creator-name2 kanit-regular">
+                    <span>Hosted by {{ event.creator.name }}</span>
                 </div>
-
+                <div class="kanit-extralight text-secondary">
+                    <span>{{event.startDate.toLocaleDateString()}} - {{ event.location }}</span>
+                </div>
+                <div class="kanit-light">
+                    <span>{{ event.ticketCount }} attending</span>
+                </div>
             </div>
         </div>
     </router-link>
@@ -35,10 +54,19 @@ defineProps({
 
 
 <style lang="scss" scoped>
+
+.card{
+    border-radius: 0.5rem;
+    background-color: #F8F6FF;
+    border: none;
+}
 .cardImg {
     min-height: 15rem;
     background-size: cover;
     background-position: center;
+    border-radius: 0.5rem;
+    height: 15rem;
+    position: relative;
 }
 
 .cardBG {
@@ -48,11 +76,41 @@ defineProps({
     border-radius: 10px;
 }
 
-.cancelledCard::before {
-    background-color: rgba(0, 0, 0, 0.631);
-    backdrop-filter: blur(5px);
-    height: 5rem;
-    border-radius: 10px;
-    border: 2px 2px solid red;
+.cancelledCard{
+    background-color: #DA4C0F;
+    color: white;
+    box-shadow: 1px 1px 1px black;
+    border-radius: 0.25rem;
+    position: absolute;
+    bottom: calc(38%);
+    left: calc(3%);
+}
+
+.soldOutCard{
+    background-color: #5044DE;
+    color: white;
+    box-shadow: 1px 1px 1px black;
+    border-radius: 0.25rem;
+    position: absolute;
+    bottom: calc(38%);
+    left: calc(3%);
+}
+
+.cancelledSoldOutCard{
+    background-color: #DA4C0F;
+    color: white;
+    box-shadow: 1px 1px 1px black;
+    border-radius: 0.25rem;
+    position: absolute;
+    bottom: calc(46%);
+    left: calc(3%);
+}
+
+.creator-name1{
+    color: #59A369;
+}
+
+.creator-name2{
+    color: #5044DE;
 }
 </style>

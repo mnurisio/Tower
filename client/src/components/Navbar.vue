@@ -20,7 +20,7 @@ function toggleTheme() {
 <template>
   <nav class="navbar navbar-expand-sm bg-page px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center welcomeTower">
+      <div class="d-flex flex-column align-items-center welcomeTower kanit-semibold">
         Tower
       </div>
     </router-link>
@@ -63,8 +63,6 @@ a:hover {
   border-bottom-right-radius: 0;
 }
 .welcomeTower{
-  font-family: "Kanit", sans-serif;
-  font-weight: 700;
   font-size: 28px;
   color: #5044DE;
 }
