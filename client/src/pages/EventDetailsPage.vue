@@ -39,7 +39,7 @@ async function getEventById() {
 
 async function cancelEvent() {
     try {
-        const confirm = await Pop.confirm('Are you sure you want to cancel this event?', "You're gonna ruin a lot of people's nights :/", "Yeah, I wanna create chaos")
+        const confirm = await Pop.confirm('Are you sure you want to cancel this event?')
         if (!confirm) return
         const eventId = route.params.eventId
         await towerEventService.cancelEvent(eventId)
@@ -102,26 +102,59 @@ async function deleteComment(commentId) {
                 :style="{ backgroundImage: `url(${event.coverImg})` }">
             </div>
         </section>
-        <section class="row">
+
+
+
+
+
+        <section class="row justify-content-between">
             <div class="col-md-7 col-12 align-items-center">
-                <h6 v-if="event.creatorId == account?.id" class="text-end"><button @click="cancelEvent()"
-                        class="btn btn-danger"><i class="mdi mdi-delete-outline"></i></button></h6>
                 <div class="text-md-start text-center">
-                    <div class="fw-bold fs-3 p-2">{{ event.name }} <h5 class="my-2">Hosted by {{ event.creator.name }}
-                        </h5>
+                    <div class="row justify-content-between fw-bold fs-3 py-2 pe-md-2 pe-0 kanit-regular">
+                        <div class="col-12">
+                            {{ event.name }}
+                            <span v-if="event.creatorId == account?.id" class="ps-0 text-end">
+                                    <span type="button" data-bs-toggle="dropdown">
+                                        <i class="mdi mdi-dots-horizontal fs-3 dropdown-btn"></i>
+                                    </span>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div @click="cancelEvent()" class="dropdown-item" type="button">Cancel Event</div>
+                                        </li>
+                                    </ul>
+                            </span>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <div v-if="account?.id == event.creatorId" class="mb-2 creator-name1">
+                        <h5>Hosted by {{ event.creator.name }}</h5>
+                    </div>
+                    <div v-else class="mb-2 creator-name2">
+                        <h5>Hosted by {{ event.creator.name }}</h5>
                     </div>
                     <div class="mb-2"><span class="rounded-pill px-3 bg-primary text-light fs-5 ">{{ event.type
-                            }}</span></div>
+                    }}</span></div>
                     <div class="mb-2" v-if="isAttending"><span
                             class="rounded-pill px-3 bg-success text-dark fs-5">You're
                             going!!!</span></div>
                 </div>
                 <p class="mb-2 text-center text-md-start">{{ event.description }}</p>
-                <h4 class="text-center text-md-start p-1 mb-0">Event Date</h4>
-                <h6 class="m-0 p-1 text-center text-md-start">{{ event.startDate.toLocaleDateString() }}</h6>
-                <h4 class="text-center text-md-start p-1 mb-0 mt-2">Location</h4>
-                <h6 class="m-0 p-1 text-center text-md-start"><i class="mdi mdi-map-outline"></i> {{ event.location }}
+                <h4 class="text-center text-md-start py-1 pe-1 mb-0">Event Date</h4>
+                <h6 class="m-0 py-1 pe-1 text-center text-md-start">{{ event.startDate.toLocaleDateString() }}</h6>
+                <h4 class="text-center text-md-start py-1 pe-1 mb-0 mt-2">Location</h4>
+                <h6 class="m-0 py-1 pe-1 text-center text-md-start"><i class="mdi mdi-map-outline"></i> {{
+                    event.location }}
                 </h6>
+
+
+
+
+
+
                 <hr>
                 <h4 class="text-center text-md-start p-1 mb-3">Comment Section</h4>
                 <div>
@@ -134,7 +167,7 @@ async function deleteComment(commentId) {
                                 <img class="commentImg col-md-2 col-3 px-md-4" :src="comment.creator.picture"
                                     :alt="comment.creator.name">
                                 <span class="ms-md-3 ms-0 col-12 col-md-9">
-                                        <h6  class="mt-md-2 mt-3">{{ comment.creator.name }}</h6>
+                                    <h6 class="mt-md-2 mt-3">{{ comment.creator.name }}</h6>
                                     <div class="">
                                         <p class="commentBody text-break">{{ comment.body }}</p>
                                     </div>
@@ -147,15 +180,15 @@ async function deleteComment(commentId) {
                     </div>
                 </div>
             </div>
-            <div class="col-md-5 col-12">
-                <div class="p-4">
-                    <div class="text-center card">
+            <div class="col-md-3 col-12 pe-0">
+                <div class="ps-4">
+                    <div class="text-center card bg-page">
                         <span class="fw-bold fs-3 mt-2">Get Tickets!</span>
                         <span class="fw-bold fs-6 mt-2">Max Capacity is {{ event.capacity }}</span>
                         <div class="card-body">
                             <div>
-                                <button v-if="!event.isCanceled && remainingTickets > 0 && account" @click="createTicket()"
-                                    class="btn btn-success">Attend
+                                <button v-if="!event.isCanceled && remainingTickets > 0 && account"
+                                    @click="createTicket()" class="btn btn-success">Attend
                                     Event</button>
                                 <button v-if="event.isCanceled" disabled class="btn btn-danger">Sorry, this event has
                                     been
@@ -199,6 +232,7 @@ async function deleteComment(commentId) {
     background-position: center;
     border-radius: 10px;
     position: relative;
+    backdrop-filter: blur(10px);
 }
 
 .canceledImg::after {
@@ -254,5 +288,27 @@ async function deleteComment(commentId) {
 .attendanceCard {
     height: 30dvh;
     overflow-y: scroll;
+}
+
+.dropdown-menu div {
+    cursor: pointer;
+}
+
+.dropdown-btn{
+    color: #696969;
+
+}
+
+.card{
+    border: none;
+    background-color: #F8F6FF;
+}
+
+.creator-name1{
+    color: #59A369;
+}
+
+.creator-name2{
+    color: #5044DE;
 }
 </style>

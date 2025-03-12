@@ -57,9 +57,14 @@ defineProps({
 
 .card{
     border-radius: 0.5rem;
-    background-color: #F8F6FF;
+    background-color: #FFFFFF;
     border: none;
 }
+
+.card-body{
+    background-color: #FFFFFF;
+}
+
 .cardImg {
     min-height: 15rem;
     background-size: cover;

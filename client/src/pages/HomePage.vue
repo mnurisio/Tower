@@ -103,7 +103,6 @@ async function getEvents() {
 }
 
 .text-bg{
-  // background-image: linear-gradient(to right, rgba(0, 0, 0, 0.312) 50%, rgba(0, 0, 0, 0.0) 0%);
   margin-left: 1em;
 }
 
@@ -113,7 +112,7 @@ async function getEvents() {
 }
 
 .categoryBox{
-  background-color: #e9e9e9;
+  background-color: #F8F6FF;
 }
 
 .mdi-infinity{
@@ -137,7 +136,7 @@ async function getEvents() {
 }
 
 .card-body{
-  background-color: #e9e9e9;
+  background-color: #F8F6FF;
 }
 
 .card-title i{
