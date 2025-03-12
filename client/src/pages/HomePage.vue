@@ -40,7 +40,7 @@ async function getEvents() {
 <template>
   <div class="picture-bg">
     <div class="container-fluid bg-hero d-flex flex-column justify-content-center">
-      <div class="row p-5 mt-5 text-bg">
+      <div class="row p-5 mt-5 text-bg kanit-regular">
         <div class="col-12">
           <h2 class="event-text">Event management for people, by people</h2>
         </div>
@@ -51,35 +51,39 @@ async function getEvents() {
     </div>
   </div>
   <div class="container">
-    <section class="row">
-      <!-- <h1 class="text-center my-2">Welcome to Tower!</h1> -->
-      <div class="my-4 text-start">
-        <h3 class="my-2">Browse Events or Create One of Your Own</h3>
+    <section>
+      <div class="mt-4 text-start">
+        <h3 class="kanit-medium">Browse Events or Create One of Your Own</h3>
       </div>
-      <hr>
     </section>
     <section class="row justify-content-evenly align-items-center">
       <div class="col-md-5 col-12">
         <div class="row justify-content-center p-3">
           <div @click="activeFilterCategory = category.name" role="button" v-for="category in categories"
-            :key="category.name" class="col-md-4 my-3 text-center bg-primary-subtle rounded-pill mx-2 p-1">
-            <span class="fs-5 text-capitalize">{{ category.name }}</span>
+            :key="category.name" class="col-md-4 my-1 text-center mx-2 p-1 kanit-medium">
+            <div class="text-capitalize categoryBox p-3">
+              <div v-if="category.name == 'all'"><i class="mdi mdi-infinity fs-3"></i></div>
+              <div v-if="category.name == 'concert'"><i class="mdi mdi-guitar-electric fs-3"></i></div>
+              <div v-if="category.name == 'convention'"><i class="mdi mdi-account-group fs-3"></i></div>
+              <div v-if="category.name == 'sport'"><i class="mdi mdi-soccer fs-3"></i></div>
+              <div v-if="category.name == 'digital'"><i class="mdi mdi-television fs-3"></i></div>
+              <div class="fs-5">{{ category.name }}</div>
+            </div>
           </div>
         </div>
       </div>
       <div v-if="account" class="col-md-5 col-12">
         <div role="button" data-bs-toggle="modal" data-bs-target="#eventModal" class="card">
           <div class="card-body">
-            <h5 class="card-title my-2"><i class="mdi mdi-plus-thick"></i> Create an Event</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary my-2">Create an event and invite your friends!</h6>
-            <p class="text-primary my-2">Add Event</p>
+            <h5 class="card-title my-2 kanit-regular"><i class="mdi mdi-plus-thick fs-3"></i> Start an event and invite your friends</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary my-2 kanit-light">Create your own Tower event, and draw from a community of millions</h6>
+            <p class="my-2 kanit-light">Create an event</p>
           </div>
         </div>
       </div>
     </section>
-    <section class="row my-md-2 my-3 mx-md-1 mx-2 text-md-start text-center">
-      <h3 class="my-3">Upcoming Events</h3>
-      <hr>
+    <section class="my-md-2 my-3 mx-md-1 mx-2 text-md-start text-center">
+      <h3 class="mt-3 kanit-medium">Upcoming Events</h3>
     </section>
     <section class="row">
       <div class="col-md-4 my-2 p-4" v-for="event in events" :key="event.id">
@@ -96,17 +100,52 @@ async function getEvents() {
   background-size: cover;
   background-position: center;
   height: 50em;
-  // opacity: 50%;
 }
 
 .text-bg{
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.312) 50%, rgba(0, 0, 0, 0.0) 0%);
+  // background-image: linear-gradient(to right, rgba(0, 0, 0, 0.312) 50%, rgba(0, 0, 0, 0.0) 0%);
   margin-left: 1em;
 }
 
 .event-text{
   text-shadow: 2px 2px 2px black;
   color: #F8F6FF;
+}
+
+.categoryBox{
+  background-color: #e9e9e9;
+}
+
+.mdi-infinity{
+  color: #59A369;
+}
+
+.mdi-guitar-electric{
+  color: #903286;
+}
+
+.mdi-account-group{
+  color: #5044DE;
+}
+
+.mdi-soccer{
+  color: #4B7DC8;
+}
+
+.mdi-television{
+  color: #DA4C0F;
+}
+
+.card-body{
+  background-color: #e9e9e9;
+}
+
+.card-title i{
+  color: #59A369;
+}
+
+.card-body p{
+  color: #59A369;
 }
 
 </style>

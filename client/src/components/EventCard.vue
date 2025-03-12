@@ -36,7 +36,7 @@ defineProps({
                     <h5 class="mb-0">{{ event.name }}</h5>
                 </div>
                 <div v-if="account?.id == event.creatorId" class="creator-name1 kanit-regular mb-0">
-                    <h6>Hosted by {{ event.creator.name }}</h6>
+                    <span>Hosted by {{ event.creator.name }}</span>
                 </div>
                 <div v-else class="creator-name2 kanit-regular">
                     <span>Hosted by {{ event.creator.name }}</span>
