@@ -40,7 +40,7 @@ async function deleteComment(commentId) {
             </div>
         </div>
         <div v-if="comment.creatorId == account?.id" class="text-end">
-            <button @click="deleteComment(comment.id)" class="btn my-2">Remove</button>
+            <button @click="deleteComment(comment.id)" class="btn my-2 kanit-regular">Remove</button>
         </div>
     </div>
 </template>

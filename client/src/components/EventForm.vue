@@ -42,7 +42,7 @@ async function createEvent() {
 
 
 <template>
-    <form @submit.prevent = createEvent()>
+    <form @submit.prevent = createEvent() id="event-submit">
         <div class="form-floating mb-3">
             <input v-model="editableEventData.name" type="text" class="form-control" id="name" placeholder="Event Name" required minlength="3"
                 maxlength="50">
@@ -79,11 +79,10 @@ async function createEvent() {
             </select>
             <label for="type">Event Type</label>
         </div>
-        <div>
-            <button class="btn" type="submit">Submit</button>
-        </div>
-
     </form>
+    <div>
+        <button form="event-submit" class="btn" type="submit">Create</button>
+    </div>
 </template>
 
 

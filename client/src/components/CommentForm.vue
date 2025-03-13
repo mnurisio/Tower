@@ -39,7 +39,7 @@ async function createComment() {
             <label for="body"></label>
         </form>
         <div class="text-end">
-            <button form="create-comment" type="submit" class="btn">Post Comment</button>
+            <button form="create-comment" type="submit" class="btn kanit-regular">Post Comment</button>
         </div>
     </div>
 </template>

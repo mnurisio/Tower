@@ -101,7 +101,7 @@ async function getCommentsByEventId() {
 
         <section class="row justify-content-between">
             <div class="col-md-7 col-12 align-items-center">
-                <div class="text-md-start text-center order-1">
+                <div class="text-start">
                     <div class="row justify-content-between fw-bold fs-3 pt-2 pe-md-2 pe-0 kanit-regular">
                         <div class="col-12">
                             {{ event.name }}
@@ -134,20 +134,20 @@ async function getCommentsByEventId() {
                                 event.type }}</span></div>
                     <div v-if="event.type == 'digital'" class="mb-2 kanit-regular"><span class="p-1 event-digital">{{
                         event.type }}</span></div>
-                    <p class="mb-2 text-center text-md-start kanit-light">{{ event.description }}</p>
-                    <h4 class="event-details text-center text-md-start py-1 pe-1 mb-0 kanit-regular">Event Date</h4>
-                    <h6 class="event-details m-0 py-1 pe-1 text-center text-md-start kanit-regular"><i
+                    <p class="mb-2 text-start kanit-light">{{ event.description }}</p>
+                    <h4 class="event-details text-start py-1 pe-1 mb-0 kanit-regular">Event Date</h4>
+                    <h6 class="event-details m-0 py-1 pe-1 text-start kanit-regular"><i
                             class="mdi mdi-map-marker"></i> {{ event.startDate.toLocaleDateString() }}</h6>
-                    <h4 class="event-details text-center text-md-start py-1 pe-1 mb-0 mt-2 kanit-regular">Location</h4>
-                    <h6 class="event-details m-0 py-1 pe-1 text-center text-md-start kanit-regular"><i
+                    <h4 class="event-details text-start py-1 pe-1 mb-0 mt-2 kanit-regular">Location</h4>
+                    <h6 class="event-details m-0 py-1 pe-1 text-start kanit-regular"><i
                             class="mdi mdi-map-outline"></i> {{ event.location }}
                     </h6>
                 </div>
                 <div class="mt-5">
-                    <h4 class="comment-title text-center text-md-start p-1 mb-3 kanit-medium">See what folks are
+                    <h4 class="comment-title text-start p-1 mb-3 kanit-medium">See what folks are
                         saying...</h4>
                 </div>
-                <div class="comment-card card-body container p-4 order-md-2 order-3">
+                <div class="comment-card card-body container p-4 order-md-2 order-3 mb-md-0 mb-4">
                     <CommentForm />
                     <div class="row justify-content-start">
                         <div v-for="comment in comments" :key="comment.id" class="bg-page col-12 my-2 align-items-center">
@@ -160,7 +160,7 @@ async function getCommentsByEventId() {
 
 
             <div class="col-md-3 col-12 pe-md-0">
-                <div class="ps-md-4 mt-md-0 mt-4">
+                <div class="ps-md-4 mt-md-0 mt-5">
                     <div class="text-center card bg-page">
                         <span class="kanit-regular fs-5 mt-2">Interested in going?</span>
                         <span class="kanit-light fs-6 mb-3">Max Capacity is {{ event.capacity }}</span>
@@ -329,6 +329,11 @@ async function getCommentsByEventId() {
 
 .attend-btn {
     background-color: #5044DE;
+    color: #F8F6FF;
+}
+
+.attend-btn:hover{
+    background-color: #4136b4;
     color: #F8F6FF;
 }
 
