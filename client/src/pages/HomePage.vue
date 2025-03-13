@@ -52,29 +52,7 @@ async function getEvents() {
     </div>
   </div>
   <div class="container">
-    <section>
-      <div class="mt-4 text-start">
-        <h3 class="kanit-medium">Browse Events</h3>
-      </div>
-    </section>
-    <section class="row align-items-center">
-      <div class="col-12">
-        <div class="row justify-content-evenly p-3">
-          <div @click="activeFilterCategory = category.name" role="button" v-for="category in categories"
-            :key="category.name" class="col-md-2 my-1 text-center mx-2 p-1 kanit-medium">
-            <div class="text-capitalize categoryBox p-3">
-              <div v-if="category.name == 'all'"><i class="mdi mdi-infinity fs-3"></i></div>
-              <div v-if="category.name == 'concert'"><i class="mdi mdi-guitar-electric fs-3"></i></div>
-              <div v-if="category.name == 'convention'"><i class="mdi mdi-account-group fs-3"></i></div>
-              <div v-if="category.name == 'sport'"><i class="mdi mdi-soccer fs-3"></i></div>
-              <div v-if="category.name == 'digital'"><i class="mdi mdi-television fs-3"></i></div>
-              <div class="fs-5">{{ category.name }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div v-if="account">
+    <div v-if="account" class="mt-4">
       <div>
         <h3 class="kanit-medium">Create Event</h3>
       </div>
@@ -90,11 +68,30 @@ async function getEvents() {
         </div>
       </div>
     </div>
-    <section class="text-md-start text-center">
-      <h3 class="mb-0 kanit-medium">Upcoming Events</h3>
+    <section>
+      <div class="mt-4 text-start">
+        <h3 class="kanit-medium">Browse Events</h3>
+      </div>
+    </section>
+    <section class="row align-items-center">
+      <div class="col-12">
+        <div class="row justify-content-evenly p-3">
+          <div @click="activeFilterCategory = category.name" role="button" v-for="category in categories"
+            :key="category.name" class="col-md-2 col-3 my-1 text-center mx-2 p-1 kanit-medium">
+            <div class="text-capitalize categoryBox p-3">
+              <div v-if="category.name == 'all'"><i class="mdi mdi-infinity fs-3"></i></div>
+              <div v-if="category.name == 'concert'"><i class="mdi mdi-guitar-electric fs-3"></i></div>
+              <div v-if="category.name == 'convention'"><i class="mdi mdi-account-group fs-3"></i></div>
+              <div v-if="category.name == 'sport'"><i class="mdi mdi-soccer fs-3"></i></div>
+              <div v-if="category.name == 'digital'"><i class="mdi mdi-television fs-3"></i></div>
+              <div class="fs-5">{{ category.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <section class="row">
-      <div class="col-md-4 mb-2 p-4" v-for="event in events" :key="event.id">
+      <div class="main-event-card col-md-4 mb-2 p-4" v-for="event in events" :key="event.id">
         <EventCard :event="event" />
       </div>
     </section>
@@ -124,6 +121,20 @@ async function getEvents() {
 
 .categoryBox {
   background-color: #F8F6FF;
+  transition: 0.2s ease-in-out;
+}
+
+.categoryBox:hover{
+  background-color: #ceccd4;
+  transform: scale(1.1);
+}
+
+.main-event-card{
+  transition: 0.2s ease-in-out;
+}
+
+.main-event-card:hover{
+  transform: scale(1.05);
 }
 
 .mdi-infinity {

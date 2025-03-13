@@ -16,7 +16,8 @@ defineProps({
     <router-link :to="{ name: 'Event Details', params: { eventId: event.id } }">
         <div class="card mt-2 mb-4">
             <img :src=event.coverImg class="cardImg" alt="...">
-            <div v-if="event.isCanceled && event.capacity != event.ticketCount" class="cancelledCard px-3 kanit-regular">
+            <div v-if="event.isCanceled && event.capacity != event.ticketCount"
+                class="cancelledCard px-3 kanit-regular">
                 CANCELLED
             </div>
             <div v-if="event.capacity == event.ticketCount && !event.isCanceled" class="soldOutCard px-3 kanit-regular">
@@ -24,11 +25,11 @@ defineProps({
             </div>
             <div v-if="event.capacity == event.ticketCount && event.isCanceled">
                 <div class="cancelledSoldOutCard px-3 kanit-regular">
-                CANCELLED
-            </div>
-            <div class="soldOutCard px-3 kanit-regular">
-                SOLD OUT
-            </div>
+                    CANCELLED
+                </div>
+                <div class="soldOutCard px-3 kanit-regular">
+                    SOLD OUT
+                </div>
             </div>
             <div class="card-body px-0">
                 <div class="kanit-regular">
@@ -41,7 +42,7 @@ defineProps({
                     <span>Hosted by {{ event.creator.name }}</span>
                 </div>
                 <div class="kanit-extralight text-secondary">
-                    <span>{{event.startDate.toLocaleDateString()}} - {{ event.location }}</span>
+                    <span>{{ event.startDate.toLocaleDateString() }} - {{ event.location }}</span>
                 </div>
                 <div class="kanit-light">
                     <span>{{ event.ticketCount }} attending</span>
@@ -53,24 +54,95 @@ defineProps({
 
 
 <style lang="scss" scoped>
-
-.card{
+.card {
     border-radius: 0.5rem;
     background-color: #FFFFFF;
     border: none;
 }
 
-.card-body{
+.card-body {
     background-color: #FFFFFF;
 }
 
-.cardImg {
-    min-height: 15rem;
-    background-size: cover;
-    background-position: center;
-    border-radius: 0.5rem;
-    height: 15rem;
-    position: relative;
+@media(min-width: 768px) {
+    .cardImg {
+        background-size: cover;
+        background-position: center;
+        border-radius: 0.5rem;
+        height: 15rem;
+        position: relative;
+    }
+
+    .soldOutCard {
+        background-color: #5044DE;
+        color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: calc(38%);
+        left: calc(3%);
+    }
+
+    .cancelledCard {
+        background-color: #DA4C0F;
+        color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: calc(38%);
+        left: calc(3%);
+    }
+
+    .cancelledSoldOutCard {
+        background-color: #DA4C0F;
+        color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: calc(46%);
+        left: calc(3%);
+    }
+
+}
+
+@media(max-width: 768px) {
+    .cardImg {
+        background-size: cover;
+        background-position: center;
+        border-radius: 0.5rem;
+        height: 20rem;
+        position: relative;
+    }
+
+    .soldOutCard {
+        background-color: #5044DE;
+        color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: calc(31%);
+        left: calc(2%);
+    }
+
+    .cancelledCard {
+        background-color: #DA4C0F;
+        color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: calc(31%);
+        left: calc(2%);
+    }
+
+    .cancelledSoldOutCard {
+        background-color: #DA4C0F;
+        color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: calc(38%);
+        left: calc(2%);
+    }
 }
 
 .cardBG {
@@ -80,41 +152,11 @@ defineProps({
     border-radius: 10px;
 }
 
-.cancelledCard{
-    background-color: #DA4C0F;
-    color: white;
-    box-shadow: 1px 1px 1px black;
-    border-radius: 0.25rem;
-    position: absolute;
-    bottom: calc(38%);
-    left: calc(3%);
-}
-
-.soldOutCard{
-    background-color: #5044DE;
-    color: white;
-    box-shadow: 1px 1px 1px black;
-    border-radius: 0.25rem;
-    position: absolute;
-    bottom: calc(38%);
-    left: calc(3%);
-}
-
-.cancelledSoldOutCard{
-    background-color: #DA4C0F;
-    color: white;
-    box-shadow: 1px 1px 1px black;
-    border-radius: 0.25rem;
-    position: absolute;
-    bottom: calc(46%);
-    left: calc(3%);
-}
-
-.creator-name1{
+.creator-name1 {
     color: #59A369;
 }
 
-.creator-name2{
+.creator-name2 {
     color: #5044DE;
 }
 </style>

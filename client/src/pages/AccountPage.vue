@@ -64,10 +64,12 @@ async function refundTicket(ticketId) {
 
 <style scoped lang="scss">
 img {
-  max-width: 100px;
+  height: 15dvh;
   aspect-ratio: 1/1;
   border-radius: 50%;
   box-shadow: 1px 2px 13px 1px rgba(0, 0, 0, 0.27);
+  object-fit: cover;
+  object-position: center;
 }
 
 .my-ticket{
@@ -79,7 +81,7 @@ img {
     background-color: #5044DE;
     color: #F8F6FF;
     position: absolute;
-    bottom: calc(40%);
+    bottom: calc(44%);
     right: calc(8%);
   }
 }
@@ -89,8 +91,8 @@ img {
     background-color: #5044DE;
     color: #F8F6FF;
     position: absolute;
-    bottom: calc(40%);
-    right: calc(5%);
+    bottom: calc(34%);
+    right: calc(4%);
   }
 }
 

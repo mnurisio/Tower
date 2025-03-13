@@ -89,16 +89,11 @@ async function getCommentsByEventId() {
     <div v-if="event" class="container">
         <section class="row justify-content-center my-3">
             <div class="col-md-12 col-11 heroImg m-2" :style="{ backgroundImage: `url(${event.coverImg})` }">
-                <div class="bg-blur row" :class="{ canceledImg: event.isCanceled, soldOutImg: remainingTickets == 0 }">
+                <div class="bg-blur row">
                     <img class="img-two mx-auto d-block" :src="event.coverImg" alt="">
                 </div>
             </div>
         </section>
-
-
-
-
-
         <section class="row justify-content-between">
             <div class="col-md-7 col-12 align-items-center">
                 <div class="text-start">
@@ -134,31 +129,16 @@ async function getCommentsByEventId() {
                                 event.type }}</span></div>
                     <div v-if="event.type == 'digital'" class="mb-2 kanit-regular"><span class="p-1 event-digital">{{
                         event.type }}</span></div>
-                    <p class="mb-2 text-start kanit-light">{{ event.description }}</p>
-                    <h4 class="event-details text-start py-1 pe-1 mb-0 kanit-regular">Event Date</h4>
-                    <h6 class="event-details m-0 py-1 pe-1 text-start kanit-regular"><i
-                            class="mdi mdi-map-marker"></i> {{ event.startDate.toLocaleDateString() }}</h6>
-                    <h4 class="event-details text-start py-1 pe-1 mb-0 mt-2 kanit-regular">Location</h4>
-                    <h6 class="event-details m-0 py-1 pe-1 text-start kanit-regular"><i
-                            class="mdi mdi-map-outline"></i> {{ event.location }}
+                    <p class="mb-2 text-start kanit-light mt-3">{{ event.description }}</p>
+                    <h4 class="event-details text-start py-1 pe-1 mb-0 mt-4 kanit-regular">Event Date</h4>
+                    <h6 class="event-details m-0 py-1 pe-1 text-start kanit-regular"><i class="mdi mdi-map-marker"></i>
+                        {{ event.startDate.toLocaleDateString() }}</h6>
+                    <h4 class="event-details text-start py-1 pe-1 mb-0 mt-4 kanit-regular">Location</h4>
+                    <h6 class="event-details m-0 py-1 pe-1 text-start kanit-regular"><i class="mdi mdi-map-outline"></i>
+                        {{ event.location }}
                     </h6>
                 </div>
-                <div class="mt-5">
-                    <h4 class="comment-title text-start p-1 mb-3 kanit-medium">See what folks are
-                        saying...</h4>
-                </div>
-                <div class="comment-card card-body container p-4 order-md-2 order-3 mb-md-0 mb-4">
-                    <CommentForm />
-                    <div class="row justify-content-start">
-                        <div v-for="comment in comments" :key="comment.id" class="bg-page col-12 my-2 align-items-center">
-                            <CommentCard :comment="comment" />
-                        </div>
-                    </div>
-                </div>
             </div>
-
-
-
             <div class="col-md-3 col-12 pe-md-0">
                 <div class="ps-md-4 mt-md-0 mt-5">
                     <div class="text-center card bg-page">
@@ -171,17 +151,17 @@ async function getCommentsByEventId() {
                         </div>
                     </div>
                     <div class="row justify-content-between py-md-0 py-2">
-                        <div class="remaining-tix kanit-medium mt-2 mb-0 col-6 text-md-start text-center" v-if="isAttending">
+                        <div class="remaining-tix kanit-medium mt-2 mb-0 col-6 text-md-start text-center"
+                            v-if="isAttending">
                             <h6>Attending</h6>
                         </div>
                         <div class="not-attending kanit-medium mt-2 mb-0 col-6 text-md-start text-center" v-else>
                             <h6>Not Attending</h6>
                         </div>
-
-                        <div class="text-end col-6 text-md-start text-center">
+                        <div class="text-end col-6 kanit-medium text-md-end text-center">
                             <h6 v-if="!event.isCanceled && remainingTickets > 0" class="mt-2 mb-0"> <span
                                     class="remaining-tix">{{ remainingTickets }}</span> spots left!</h6>
-                            <h6 v-if="remainingTickets == 0" class="mt-2 mb-0">This event is sold out!</h6>
+                            <h6 v-if="remainingTickets == 0" class="mt-2 mb-0">Sold out!</h6>
                         </div>
                     </div>
                 </div>
@@ -204,6 +184,18 @@ async function getCommentsByEventId() {
                 </div>
             </div>
         </section>
+        <section class="mt-md-1 mt-5">
+            <h4 class="comment-title text-start px-1 pb-1 mb-3 kanit-medium">See what folks are
+                saying...</h4>
+        </section>
+        <div class="comment-card card-body container p-4 order-md-2 order-3 mb-md-0 mb-4">
+            <CommentForm />
+            <div class="row justify-content-start">
+                <div v-for="comment in comments" :key="comment.id" class="bg-page col-12 my-2 align-items-center">
+                    <CommentCard :comment="comment" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -231,40 +223,6 @@ async function getCommentsByEventId() {
     }
 }
 
-.canceledImg::after {
-    left: 0;
-    position: absolute;
-    content: 'CANCELLED';
-    font-size: 50px;
-    font-weight: bolder;
-    color: red;
-    text-align: center;
-    padding-top: calc(12.5% - 10px);
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    border-color: red;
-    background-color: rgba(0, 0, 0, 0.878);
-    backdrop-filter: blur(10px);
-}
-
-.soldOutImg::after {
-    left: 0;
-    position: absolute;
-    content: 'SOLD OUT';
-    font-size: 50px;
-    font-weight: bolder;
-    color: rgb(0, 157, 255);
-    text-align: center;
-    padding-top: calc(12.5% - 10px);
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    border-color: red;
-    background-color: rgba(0, 0, 0, 0.579);
-    backdrop-filter: blur(15px);
-}
-
 .canceledText {
     text-shadow: 1px 1px 2px black;
 }
@@ -273,6 +231,8 @@ async function getCommentsByEventId() {
     height: 5dvh;
     aspect-ratio: 1/1;
     border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
 
 
@@ -332,7 +292,7 @@ async function getCommentsByEventId() {
     color: #F8F6FF;
 }
 
-.attend-btn:hover{
+.attend-btn:hover {
     background-color: #4136b4;
     color: #F8F6FF;
 }
@@ -376,6 +336,4 @@ async function getCommentsByEventId() {
 .comment-title {
     color: #484848;
 }
-
-
 </style>
