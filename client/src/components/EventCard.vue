@@ -1,7 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { TowerEvent } from '@/models/TowerEvent';
-import { accountService } from '@/services/AccountService';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)

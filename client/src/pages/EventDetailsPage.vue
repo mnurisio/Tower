@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import CommentCard from '@/components/CommentCard.vue';
 import CommentForm from '@/components/CommentForm.vue';
 import { commentService } from '@/services/CommentService';
 import { ticketService } from '@/services/TicketService';
@@ -79,16 +80,7 @@ async function getCommentsByEventId() {
     }
 }
 
-async function deleteComment(commentId) {
-    try {
-        const confirm = await Pop.confirm('Are you sure you want to delete your comment?')
-        if (!confirm) { return }
-        await commentService.deleteComment(commentId)
-    }
-    catch (error) {
-        Pop.meow(error);
-    }
-}
+
 
 </script>
 
@@ -109,7 +101,7 @@ async function deleteComment(commentId) {
 
         <section class="row justify-content-between">
             <div class="col-md-7 col-12 align-items-center">
-                <div class="text-md-start text-center">
+                <div class="text-md-start text-center order-1">
                     <div class="row justify-content-between fw-bold fs-3 pt-2 pe-md-2 pe-0 kanit-regular">
                         <div class="col-12">
                             {{ event.name }}
@@ -134,42 +126,32 @@ async function deleteComment(commentId) {
                         <h5>Hosted by {{ event.creator.name }}</h5>
                     </div>
                     <div v-if="event.type == 'sport'" class="mb-2 kanit-regular"><span class="p-1 event-sport">{{
-                            event.type }}</span></div>
+                        event.type }}</span></div>
                     <div v-if="event.type == 'concert'" class="mb-2 kanit-regular"><span class="p-1 event-concert">{{
-                            event.type }}</span></div>
-                    <div v-if="event.type == 'convention'" class="mb-2 kanit-regular"><span class="p-1 event-convention">{{
-                            event.type }}</span></div>
+                        event.type }}</span></div>
+                    <div v-if="event.type == 'convention'" class="mb-2 kanit-regular"><span
+                            class="p-1 event-convention">{{
+                                event.type }}</span></div>
                     <div v-if="event.type == 'digital'" class="mb-2 kanit-regular"><span class="p-1 event-digital">{{
-                            event.type }}</span></div>
+                        event.type }}</span></div>
+                    <p class="mb-2 text-center text-md-start kanit-light">{{ event.description }}</p>
+                    <h4 class="event-details text-center text-md-start py-1 pe-1 mb-0 kanit-regular">Event Date</h4>
+                    <h6 class="event-details m-0 py-1 pe-1 text-center text-md-start kanit-regular"><i
+                            class="mdi mdi-map-marker"></i> {{ event.startDate.toLocaleDateString() }}</h6>
+                    <h4 class="event-details text-center text-md-start py-1 pe-1 mb-0 mt-2 kanit-regular">Location</h4>
+                    <h6 class="event-details m-0 py-1 pe-1 text-center text-md-start kanit-regular"><i
+                            class="mdi mdi-map-outline"></i> {{ event.location }}
+                    </h6>
                 </div>
-                <p class="mb-2 text-center text-md-start">{{ event.description }}</p>
-                <h4 class="text-center text-md-start py-1 pe-1 mb-0">Event Date</h4>
-                <h6 class="m-0 py-1 pe-1 text-center text-md-start">{{ event.startDate.toLocaleDateString() }}</h6>
-                <h4 class="text-center text-md-start py-1 pe-1 mb-0 mt-2">Location</h4>
-                <h6 class="m-0 py-1 pe-1 text-center text-md-start"><i class="mdi mdi-map-outline"></i> {{
-                    event.location }}
-                </h6>
-                <hr>
-                <h4 class="text-center text-md-start p-1 mb-3">Comment Section</h4>
-                <div>
+                <div class="mt-5">
+                    <h4 class="comment-title text-center text-md-start p-1 mb-3 kanit-medium">See what folks are
+                        saying...</h4>
+                </div>
+                <div class="comment-card card-body container p-4 order-md-2 order-3">
                     <CommentForm />
-                </div>
-                <div class="card-body">
                     <div class="row justify-content-start">
-                        <div v-for="comment in comments" :key="comment.id" class="col-12 my-2 align-items-center">
-                            <div class="row mb-2 align-items-center border border-dark border-2 p-2 m-1">
-                                <img class="commentImg col-md-2 col-3 px-md-4" :src="comment.creator.picture"
-                                    :alt="comment.creator.name">
-                                <span class="ms-md-3 ms-0 col-12 col-md-9">
-                                    <h6 class="mt-md-2 mt-3">{{ comment.creator.name }}</h6>
-                                    <div class="">
-                                        <p class="commentBody text-break">{{ comment.body }}</p>
-                                    </div>
-                                </span>
-                                <div v-if="comment.creatorId == account?.id" class="text-end">
-                                    <button @click="deleteComment(comment.id)" class="btn btn-danger">Delete</button>
-                                </div>
-                            </div>
+                        <div v-for="comment in comments" :key="comment.id" class="bg-page col-12 my-2 align-items-center">
+                            <CommentCard :comment="comment" />
                         </div>
                     </div>
                 </div>
@@ -177,29 +159,33 @@ async function deleteComment(commentId) {
 
 
 
-            <div class="col-md-3 col-12 pe-0">
-                <div class="ps-4">
+            <div class="col-md-3 col-12 pe-md-0">
+                <div class="ps-md-4 mt-md-0 mt-4">
                     <div class="text-center card bg-page">
                         <span class="kanit-regular fs-5 mt-2">Interested in going?</span>
                         <span class="kanit-light fs-6 mb-3">Max Capacity is {{ event.capacity }}</span>
                         <div class="card-body kanit-light">
                             <button v-if="!event.isCanceled && remainingTickets > 0" @click="createTicket()"
-                                class="btn attend-btn w-50">Attend</button>
+                                class="btn attend-btn w-50" :disabled="account == null">Attend</button>
                             <button v-else disabled class="btn attend-btn w-50">Attend</button>
                         </div>
                     </div>
-                    <div class="row justify-content-between">
-                        <div class="remaining-tix kanit-medium mt-2 mb-0 col-md-6" v-if="isAttending"><h6>Attending</h6></div>
-                        <div class="not-attending kanit-medium mt-2 mb-0 col-md-6" v-else><h6>Not Attending</h6></div>
-                        
-                            <div class="text-end col-md-6">
-                                <h6 v-if="!event.isCanceled && remainingTickets > 0" class="mt-2 mb-0"> <span
+                    <div class="row justify-content-between py-md-0 py-2">
+                        <div class="remaining-tix kanit-medium mt-2 mb-0 col-6 text-md-start text-center" v-if="isAttending">
+                            <h6>Attending</h6>
+                        </div>
+                        <div class="not-attending kanit-medium mt-2 mb-0 col-6 text-md-start text-center" v-else>
+                            <h6>Not Attending</h6>
+                        </div>
+
+                        <div class="text-end col-6 text-md-start text-center">
+                            <h6 v-if="!event.isCanceled && remainingTickets > 0" class="mt-2 mb-0"> <span
                                     class="remaining-tix">{{ remainingTickets }}</span> spots left!</h6>
-                                    <h6 v-if="remainingTickets == 0" class="mt-2 mb-0">This event is sold out!</h6>
-                                </div>
-                            </div>
+                            <h6 v-if="remainingTickets == 0" class="mt-2 mb-0">This event is sold out!</h6>
+                        </div>
+                    </div>
                 </div>
-                <div class="ms-3 my-3 ps-2 py-2">
+                <div class="ms-md-3 my-md-3 ps-md-2 py-md-2">
                     <div class="card attendanceCard">
                         <div class="text-center my-2">
                             <span class="kanit-regular fs-3">Attendees</span>
@@ -289,11 +275,7 @@ async function deleteComment(commentId) {
     border-radius: 50%;
 }
 
-.commentImg {
-    height: 6dvh;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-}
+
 
 .attendanceCard {
     height: 30dvh;
@@ -322,7 +304,6 @@ async function deleteComment(commentId) {
 
 .dropdown-btn {
     color: #696969;
-
 }
 
 .card {
@@ -342,7 +323,7 @@ async function deleteComment(commentId) {
     color: #59A369;
 }
 
-.not-attending{
+.not-attending {
     color: #5044DE;
 }
 
@@ -356,20 +337,39 @@ async function deleteComment(commentId) {
     color: rgba(49, 102, 182, 1);
     border-radius: 0.25rem;
 }
+
 .event-concert {
     background-color: rgb(255, 236, 252);
     color: rgba(144, 50, 134, 1);
     border-radius: 0.25rem;
 }
+
 .event-convention {
     background-color: rgb(238, 236, 254);
     color: rgba(80, 68, 222, 1);
     border-radius: 0.25rem;
 }
+
 .event-digital {
     background-color: rgb(255, 234, 225);
     color: rgba(218, 76, 15, 1);
     border-radius: 0.25rem;
+}
+
+.event-details {
+    color: #696969;
+}
+
+.event-details i {
+    color: #5044DE;
+}
+
+.comment-card {
+    background-color: #F8F6FF;
+}
+
+.comment-title {
+    color: #484848;
 }
 
 
