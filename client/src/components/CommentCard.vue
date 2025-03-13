@@ -35,8 +35,8 @@ async function deleteComment(commentId) {
         </div>
         <div class="col-10 ps-0">
             <h6 class="mt-md-2 mt-3 kanit-medium">{{ comment.creator.name }}</h6>
-            <div>
-                <p class="text-break kanit-light mb-1">{{ comment.body }}</p>
+            <div class="mb-2">
+                <p class="text-break kanit-light">{{ comment.body }}</p>
             </div>
         </div>
         <div v-if="comment.creatorId == account?.id" class="text-end">
@@ -62,6 +62,11 @@ async function deleteComment(commentId) {
 
 button {
     background-color: #DA4C0F;
+    color: #F8F6FF;
+}
+
+button:hover{
+    background-color: #bc410c;
     color: #F8F6FF;
 }
 

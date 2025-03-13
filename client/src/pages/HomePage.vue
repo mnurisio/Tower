@@ -79,7 +79,7 @@ async function getEvents() {
         <h3 class="kanit-medium">Create Event</h3>
       </div>
       <div class="row my-3">
-        <div role="button" data-bs-toggle="modal" data-bs-target="#eventModal" class="card px-0 mx-2 col-md-5">
+        <div role="button" data-bs-toggle="modal" data-bs-target="#eventModal" class="card create-card px-0 mx-2 col-md-5">
           <div class="card-body">
             <h5 class="card-title mb-2 kanit-regular"><i class="mdi mdi-plus-thick fs-3"></i> Start an event and invite
               your friends</h5>
@@ -116,6 +116,10 @@ async function getEvents() {
 .event-text {
   text-shadow: 2px 2px 2px black;
   color: #F8F6FF;
+}
+
+.create-card{
+  border: none;
 }
 
 .categoryBox {

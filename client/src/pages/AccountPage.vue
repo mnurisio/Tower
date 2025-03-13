@@ -42,13 +42,13 @@ async function refundTicket(ticketId) {
         <img class="my-2" :src="account.picture" :alt="account.name" />
       </div>
       <div class="col-9 text-start">
-        <h1 class="my-2">{{ account.name }}</h1>
+        <h1 class="my-2 kanit-medium">{{ account.name }}</h1>
       </div>
     </div>
     <div class="container mt-5">
       <section class="row">
         <div class="text-md-start text-center my-2">
-          <h3>Your Upcoming Events</h3>
+          <h3 class="kanit-medium">Your Upcoming Events</h3>
         </div>
         <div v-for="myTicket in myTickets" :key="myTicket.id" class="col-md-3 col-12 text-start my-ticket">
           <EventCard :event="myTicket.event" />
@@ -96,8 +96,8 @@ img {
 
 
 button:hover{
-  background-color: #5044DE;
-  color: #F8F6FF;
+    background-color: #4136b4;
+    color: #F8F6FF;
 }
 
 </style>

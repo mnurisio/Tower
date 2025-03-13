@@ -80,11 +80,23 @@ async function createEvent() {
             <label for="type">Event Type</label>
         </div>
         <div>
-            <button class="btn btn-success" type="submit">Submit</button>
+            <button class="btn" type="submit">Submit</button>
         </div>
 
     </form>
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+button{
+    background-color: #5044DE;
+    color: #F8F6FF;
+}
+
+button:hover{
+    background-color: #4136b4;
+    color: #F8F6FF;
+}
+
+</style>
