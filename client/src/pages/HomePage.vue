@@ -40,11 +40,11 @@ async function getEvents() {
 <template>
   <div class="picture-bg">
     <div class="container-fluid bg-hero d-flex flex-column justify-content-center">
-      <div class="row p-5 mt-5 text-bg kanit-regular text-md-start text-center">
+      <div class="row p-md-5 mt-md-5 text-bg kanit-regular text-md-start text-center">
         <div class="col-12">
           <h2 class="event-text">Event management for people, by people</h2>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-12">
           <h4 class="event-text">Whatever your interest, from hiking and reading to networking and skill sharing, there
             are thousands of people who share it on Tower. Events are happening every day- log in and join the fun.</h4>
         </div>
@@ -56,7 +56,7 @@ async function getEvents() {
       <div>
         <h3 class="kanit-medium">Create Event</h3>
       </div>
-      <div class="row my-3">
+      <div class="my-3">
         <div role="button" data-bs-toggle="modal" data-bs-target="#eventModal" class="card create-card px-0 mx-2 col-md-5">
           <div class="card-body">
             <h5 class="card-title mb-2 kanit-regular"><i class="mdi mdi-plus-thick fs-3"></i> Start an event and invite
@@ -77,7 +77,7 @@ async function getEvents() {
       <div class="col-12">
         <div class="row justify-content-evenly p-3">
           <div @click="activeFilterCategory = category.name" role="button" v-for="category in categories"
-            :key="category.name" class="col-md-2 col-3 my-1 text-center mx-2 p-1 kanit-medium">
+            :key="category.name" class="col-md-2 col-4 my-1 text-center mx-2 p-1 kanit-medium">
             <div class="text-capitalize categoryBox p-md-3 p-1">
               <div v-if="category.name == 'all'"><i class="mdi mdi-infinity fs-3"></i></div>
               <div v-if="category.name == 'concert'"><i class="mdi mdi-guitar-electric fs-3"></i></div>
@@ -108,9 +108,9 @@ async function getEvents() {
   height: 50em;
 }
 
-.text-bg {
-  margin-left: 1em;
-}
+// .text-bg {
+//   margin-left: 1em;
+// }
 
 .event-text {
   text-shadow: 2px 2px 2px black;
