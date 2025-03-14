@@ -40,7 +40,7 @@ async function getEvents() {
 <template>
   <div class="picture-bg">
     <div class="container-fluid bg-hero d-flex flex-column justify-content-center">
-      <div class="row p-5 mt-5 text-bg kanit-regular">
+      <div class="row p-5 mt-5 text-bg kanit-regular text-md-start text-center">
         <div class="col-12">
           <h2 class="event-text">Event management for people, by people</h2>
         </div>
@@ -78,13 +78,13 @@ async function getEvents() {
         <div class="row justify-content-evenly p-3">
           <div @click="activeFilterCategory = category.name" role="button" v-for="category in categories"
             :key="category.name" class="col-md-2 col-3 my-1 text-center mx-2 p-1 kanit-medium">
-            <div class="text-capitalize categoryBox p-3">
+            <div class="text-capitalize categoryBox p-md-3 p-1">
               <div v-if="category.name == 'all'"><i class="mdi mdi-infinity fs-3"></i></div>
               <div v-if="category.name == 'concert'"><i class="mdi mdi-guitar-electric fs-3"></i></div>
               <div v-if="category.name == 'convention'"><i class="mdi mdi-account-group fs-3"></i></div>
               <div v-if="category.name == 'sport'"><i class="mdi mdi-soccer fs-3"></i></div>
               <div v-if="category.name == 'digital'"><i class="mdi mdi-television fs-3"></i></div>
-              <div class="fs-5">{{ category.name }}</div>
+              <div class="fs-md-5">{{ category.name }}</div>
             </div>
           </div>
         </div>
@@ -99,6 +99,8 @@ async function getEvents() {
 </template>
 
 <style scoped lang="scss">
+
+
 .bg-hero {
   background-image: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fGZvcm1hbCUyMHBhcnR5fGVufDB8fDB8fHwy');
   background-size: cover;
