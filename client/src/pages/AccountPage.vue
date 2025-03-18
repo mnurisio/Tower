@@ -36,12 +36,12 @@ async function refundTicket(ticketId) {
 </script>
 
 <template>
-  <div class="about text-center container">
-    <div v-if="account" class="row justify-content-start align-items-center">
-      <div class="col-md-2 col-3">
+  <div v-if="account" class="about text-center container">
+    <div class="row justify-content-start align-items-center">
+      <div class="col-md-2 col-5">
         <img class="my-2" :src="account.picture" :alt="account.name" />
       </div>
-      <div class="col-9 text-start">
+      <div class="col-7 text-start ps-0">
         <h1 class="my-2 kanit-medium">{{ account.name }}</h1>
       </div>
     </div>
@@ -63,14 +63,8 @@ async function refundTicket(ticketId) {
 </template>
 
 <style scoped lang="scss">
-img {
-  height: 15dvh;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  box-shadow: 1px 2px 13px 1px rgba(0, 0, 0, 0.27);
-  object-fit: cover;
-  object-position: center;
-}
+
+
 
 .my-ticket{
   position: relative;
@@ -84,6 +78,14 @@ img {
     bottom: calc(44%);
     right: calc(8%);
   }
+  img {
+  height: 15dvh;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  box-shadow: 1px 2px 13px 1px rgba(0, 0, 0, 0.27);
+  object-fit: cover;
+  object-position: center;
+}
 }
 
 @media(max-width: 768px){
@@ -92,8 +94,16 @@ img {
     color: #F8F6FF;
     position: absolute;
     bottom: calc(34%);
-    right: calc(4%);
+    right: calc(5%);
   }
+  img {
+  height: 10dvh;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  box-shadow: 1px 2px 13px 1px rgba(0, 0, 0, 0.27);
+  object-fit: cover;
+  object-position: center;
+}
 }
 
 
