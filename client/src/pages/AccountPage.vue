@@ -38,10 +38,10 @@ async function refundTicket(ticketId) {
 <template>
   <div v-if="account" class="about text-center container">
     <div class="row justify-content-start align-items-center">
-      <div class="col-md-2 col-5">
+      <div class="col-md-2 col-4">
         <img class="my-2" :src="account.picture" :alt="account.name" />
       </div>
-      <div class="col-7 text-start ps-0">
+      <div class="account-name col-8 text-start ps-0">
         <h1 class="my-2 kanit-medium">{{ account.name }}</h1>
       </div>
     </div>
@@ -64,7 +64,9 @@ async function refundTicket(ticketId) {
 
 <style scoped lang="scss">
 
-
+.account-name{
+  text-wrap: wrap;
+}
 
 .my-ticket{
   position: relative;
